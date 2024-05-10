@@ -75,10 +75,7 @@ class LinkedList:
             case "5":
                 SystemExit(0)
 
-    def main(self):
-        self.mainmenu()
-
 
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.main()
+    ll.mainmenu()
