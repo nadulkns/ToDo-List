@@ -1,3 +1,5 @@
+
+
 class Task:
     def __init__(self, no=None, title=None, des=None, due=None, status=None):
         self.no = no
@@ -18,19 +20,31 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def add_new_task(self, task):
+    def add_new_task(self):
+        count = input("How many Task do you want to add : ")
+        count = int(count)
 
-        if self.head is None:
-            node = Task(task.no, task.title, task.des, task.due, task.status)
-            self.head = node
+        for i in range(count):
+            title = input("\nEnter Task's Title : ")
+            des = input("Enter Task's Description : ")
+            due = input("Enter Task's Due Date (yyyy-mm-dd) :")
+            status = input("Enter Task Status : ")
 
-        itr = self.head
-        while itr.next:
-            itr = itr.next
-        node = Task(task.no, task.title, task.des, task.due, task.status)
-        itr.next = node
+            if self.head is None:
+                node = Task(i+1, title, des, due, status)
+                self.head = node
+
+            else:
+                itr = self.head
+                while itr.next:
+                    itr = itr.next
+                node = Task(i+1, title, des, due, status)
+                itr.next = node
+
+        self.mainmenu()
 
     def print(self):
+        print("\n\t *** My To-Do List ***")
         itr = self.head
         while itr:
             print(f"Task No : {itr.no}")
@@ -40,28 +54,29 @@ class LinkedList:
             print(f"Status :{itr.status} \n")
             itr = itr.next
 
+        self.mainmenu()
+
     def mainmenu(self):
         print("\t *** To-Do List Manager ***")
         print("\n\t Main Menu")
         print("\n1.Add a Task")
-        print("\n2.View All Tasks")
+        print("2.View All Tasks")
+        print("5.Exit")
 
-        choice = input("Enter your choice : ")
+        choice = input("\nEnter your choice : ")
 
         match choice:
             case "1":
-                self.add_new_task(None)
+                self.add_new_task()
 
             case "2":
                 self.print()
 
+            case "5":
+                SystemExit(0)
+
     def main(self):
-        mytask = LinkedList()
-        task1 = Task(1, "CS", "Python Project", "23/05/2024", "Not Completed")
-        task2 = Task(2, "Maths", "Real Analysis", "20/05/2024", "Completed")
-        mytask.add_new_task(task1)
-        mytask.add_new_task(task2)
-        mytask.print()
+        self.mainmenu()
 
 
 if __name__ == '__main__':
