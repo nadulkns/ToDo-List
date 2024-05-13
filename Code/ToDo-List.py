@@ -1,5 +1,14 @@
-from datetime import datetime
 from datetime import date
+import mysql.connector
+
+"""db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="linkedlist"
+)
+
+cursor = db.cursor() """
 
 
 class Task:
@@ -25,24 +34,37 @@ class LinkedList:
     def add_new_task(self):
         count = input("How many Task do you want to add : ")
         count = int(count)
+        x = 1
 
         for i in range(count):
             title = input("\nEnter Task's Title : ")
             des = input("Enter Task's Description : ")
             due = input("Enter Task's Due Date (yyyy-mm-dd) :")
-            status = input("Enter Task Status : ")
 
             due_date = date.fromisoformat(due)
 
             if self.head is None:
-                node = Task(i+1, title, des, due_date, status)
+                node = Task(x, title, des, due_date, "Not Completed")
                 self.head = node
+                x += 1
+
+              #  sql = "INSERT INTO task (No,Title,Des,Due,Status) VALUES (%s,%s,%s,%s,%s)"
+              #  val = (node.no, node.title, node.des, node.due, node.status)
+              # cursor.execute(sql, val)
+              #  db.commit()
 
             else:
                 itr = self.head
                 while itr.next:
                     itr = itr.next
-                node = Task(i+1, title, des, due_date, status)
+                node = Task(x, title, des, due_date, "Not Completed")
+                x += 1
+
+               # sql = "INSERT INTO task (No,Title,Des,Due,Status) VALUES (%s,%s,%s,%s,%s)"
+               # val = (node.no, node.title, node.des, node.due, node.status)
+               # cursor.execute(sql, val)
+               # db.commit()
+
                 itr.next = node
 
         self.mainmenu()
@@ -224,7 +246,9 @@ class LinkedList:
 
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.addnew(1, "CS", "Project", "2024-05-12", "Not Completed")
-    ll.addnew(2, "Maths", "Real Analysis", "2024-05-25", "Not Completed")
-    ll.addnew(3, "Trip", "To Galle", "2024-05-17", "Not Completed")
+    # ll.addnew(1, "CS", "Project", "2024-05-12", "Not Completed")
+    # ll.addnew(2, "Maths", "Real Analysis", "2024-05-25", "Not Completed")
+    # ll.addnew(3, "Trip", "To Galle", "2024-05-17", "Not Completed")
+    # ll.addnew(4, "Trip", "To Kandy", "2024-05-13", "Not Completed")
+    # ll.addnew(5, "Stat", "Assignment", "2024-05-22", "Not Completed")
     ll.mainmenu()
